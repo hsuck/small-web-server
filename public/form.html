@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>Upload File</title>
+		<style>
+			body{
+				font-family: cursive;
+			}
+			h1{
+				text-align: center;
+			}
+			div{
+				text-align: center;
+				margin-top: 15px
+			}
+			.browse{
+				padding-left: 180px;
+			}
+			.pic img{
+				height: 256px;
+				height: 256px;
+				text-align: center;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+
+	<body>
+
+	<h1>Upload File</h1>
+	
+	<div class = "pic">
+		<img src="./upload.jpg">
+	</div>
+
+	<form method = "post" enctype = "multipart/form-data" action = "./success.html">
+		<div>
+			<label for = "file">Choose your file</label>
+		</div>
+		<div class = "browse">
+			<input name = "uploadfile" type = "file" id = "file">
+		</div>
+		<div>
+			<button>Send</button>
+		</div>
+	</form>
+
+	</body>
+</html>
+
