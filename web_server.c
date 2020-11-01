@@ -1,27 +1,3 @@
-/*
- * MIT License
- *
- * Copyright (c) 2018 Lewis Van Winkle
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #include "chap07.h"
 #include <time.h>
 #include <unistd.h>
@@ -392,18 +368,18 @@ int store_file(char *packet, int size, char *boundary)
             content[i - 4] = temp[i];
             i++;
         }
-        fprintf(stderr, "\ni = %lld\n", i - 4);
+        //fprintf(stderr, "\ni = %lld\n", i - 4);
 
         if (flag != 1)
         {
-            fprintf(stderr, "\nFile size is too large\n");
+            //fprintf(stderr, "\nFile size is too large\n");
             return 413;
         }
 
         fp = fopen(filename, "wbx");
         if (fp == NULL)
         {
-            fprintf(stderr, "\nFile name collision\n");
+            //fprintf(stderr, "\nFile name collision\n");
             return 500;
         }
 
@@ -411,7 +387,7 @@ int store_file(char *packet, int size, char *boundary)
         if (length <= 0)
             perror("fwrite failed");
 
-        fprintf(stderr, "Upload File Success!\n");
+        //fprintf(stderr, "Upload File Success!\n");
         fclose(fp);
     }
     return 0;
@@ -476,7 +452,7 @@ int main() {
                     else
                     {
                         client->received += r;
-                        fprintf(stderr, "\n%lld %lld\n", r, MAX_REQUEST_SIZE - client->received);
+                        //fprintf(stderr, "\n%lld %lld\n", r, MAX_REQUEST_SIZE - client->received);
                         gettimeofday(&begin, NULL);
                     }
                 }
@@ -499,7 +475,7 @@ int main() {
                 else
                 {
                     //fwrite( client->request, client->received, 1, stderr );
-                    fprintf(stderr, "\ntotal size = %lld\n", client->received);
+                    //fprintf(stderr, "\ntotal size = %lld\n", client->received);
 
                     char *q = strstr(client->request, "\r\n\r\n");
 
@@ -537,10 +513,10 @@ int main() {
 
                             strcat(result, "--");
                             strcat(result, temp);
-                            fprintf(stderr, "\n%s\n", result);
+                            //fprintf(stderr, "\n%s\n", result);
 
                             int flag = store_file(q, 500000, result);
-                            fprintf(stderr, "\nflag = %d\n", flag);
+                            //fprintf(stderr, "\nflag = %d\n", flag);
 
                             char *path = client->request + 5;
                             char *end_path = strstr(path, " ");
