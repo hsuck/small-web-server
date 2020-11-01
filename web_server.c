@@ -425,9 +425,10 @@ int main() {
             {
                 long long r;
                 client->received = 0;
-
+					
                 struct timeval begin, now;
                 double time_diff, timeout = 0.155555;
+				int a = 0;
 
                 gettimeofday(&begin, NULL);
 
@@ -443,9 +444,12 @@ int main() {
                     else if (time_diff >= timeout * 2)
                         break;
 
-                    if (MAX_REQUEST_SIZE - client->received < 4096)
+                    if (MAX_REQUEST_SIZE - client->received < 4096){
+                        //fprintf(stderr, "\n%lld %lld\n", r, MAX_REQUEST_SIZE - client->received);
+						a = 1;
+                        //fprintf(stderr, "\na = %d\n", a);
                         break;
-
+					}
                     if ((r = recv(client->socket, client->request + client->received, 4096, MSG_DONTWAIT)) <= 0)
                         usleep(100000);
 
@@ -459,10 +463,11 @@ int main() {
 
                 client->request[client->received] = 0;
 
-                if (MAX_REQUEST_SIZE - client->received < 4096)
+                if (a)
                 {
                     send_400(client);
                     client = next;
+                    //fprintf(stderr, "\na = %d\n", a);
                     continue;
                 }
 
